@@ -14,7 +14,7 @@ Then import and use utils, for example:
 
 ```ts
 import { expect, test } from "@playwright/test";
-import { PageUtils } from "@wpazderski/playwright-utils/PageUtils.ts";
+import { PageUtils } from "@wpazderski/playwright-utils/PageUtils.js";
 
 test.describe("example", () => {
     test.beforeEach(async ({ page }) => {
