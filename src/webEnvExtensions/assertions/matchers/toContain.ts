@@ -85,7 +85,7 @@ export function toContainMatcher(internalOptions: MatcherInternalOptions, receiv
             );
         }
 
-        const index = received.indexOf(String(expected));
+        const index = received.indexOf(expected);
         const didPass = index !== -1;
 
         if (didPass === internalOptions.isNot) {
@@ -97,7 +97,7 @@ export function toContainMatcher(internalOptions: MatcherInternalOptions, receiv
                 `${matcherHint(matcherName, undefined, undefined, options)}\n\n` +
                 `${printLabel(labelExpected)}${internalOptions.isNot ? "not " : ""}${printExpected(expected)}\n` +
                 `${printLabel(labelReceived)}${internalOptions.isNot ? "    " : ""}${
-                    internalOptions.isNot ? printReceivedStringContainExpectedSubstring(received, index, String(expected).length) : printReceived(received)
+                    internalOptions.isNot ? printReceivedStringContainExpectedSubstring(received, index, expected.length) : printReceived(received)
                 }`;
 
             throw new AssertionError(message, matcherName, internalOptions);
