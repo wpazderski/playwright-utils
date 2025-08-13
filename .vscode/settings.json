@@ -54,5 +54,11 @@
     "eslint.runtime": "node",
     "eslint.options": {
         "flags": ["unstable_config_lookup_from_file", "unstable_native_nodejs_ts_config"]
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "/docs": true
     }
 }

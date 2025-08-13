@@ -18,32 +18,56 @@
     },
     "type": "module",
     "exports": {
-        "./*": "./dist/*"
+        "./*": "./dist/*",
+        "./webEnvExtensions/assertions/matchers/common": null,
+        "./webEnvExtensions/assertions/matchers/common.js": null
     },
     "files": [
         "dist"
     ],
     "scripts": {
-        "build": "rimraf ./dist/ && rimraf -g ./node_modules/.tmp/*.tsbuildinfo && tsc -b",
+        "build": "rimraf ./dist/ && rimraf -g ./node_modules/.tmp/*.tsbuildinfo && tsc -b && rm -f ./dist/webEnvExtensions/assertions/matchers/common.d.ts",
+        "build-docs": "node ./scripts/build-docs.ts",
         "lint-check": "eslint ./ --flag unstable_native_nodejs_ts_config --flag unstable_config_lookup_from_file --max-warnings 0",
         "lint-fix": "eslint ./ --flag unstable_native_nodejs_ts_config --flag unstable_config_lookup_from_file --max-warnings 0 --fix",
         "prettier-check": "prettier ./ --check",
         "prettier-fix": "prettier ./ --write",
-        "tsc-check": "tsc --noEmit",
-        "check-all": "run-s lint-check prettier-check tsc-check",
-        "pre-commit-checks": "run-s check-all"
+        "tsc-check": "tsc -b --noEmit",
+        "check-licenses": "check-licenses",
+        "check-outdated-packages": "check-outdated-packages",
+        "check-all": "run-s lint-check prettier-check tsc-check check-licenses check-outdated-packages",
+        "pre-commit-checks": "run-s check-all",
+        "dev": "vite --config devServer/vite.config.ts --port 7102",
+        "start-test-server": "cross-env PLAYWRIGHT_UTILS_IS_TEST_ENV=true vite --config devServer/vite.config.ts --host --port 7102",
+        "test-chromium": "playwright test --project=chromium",
+        "test-firefox": "playwright test --project=firefox",
+        "test-webkit": "playwright test --project=webkit",
+        "test": "playwright test --project=chromium",
+        "test-all": "playwright test"
+    },
+    "dependencies": {
+        "@jest/expect-utils": "^30.0.5",
+        "jest-get-type": "^29.6.3",
+        "jest-matcher-utils": "^30.0.5"
     },
     "devDependencies": {
-        "@playwright/test": "^1.52.0",
-        "@types/node": "^22.15.29",
-        "@wpazderski/eslint-config": "^1.0.4",
-        "@wpazderski/prettier-config": "^1.0.2",
-        "@wpazderski/typescript-config": "^1.0.3",
-        "eslint": "^9.28.0",
+        "@playwright/test": "^1.54.2",
+        "@types/node": "^24.2.1",
+        "@types/web": "^0.0.261",
+        "@wpazderski/eslint-config": "^1.0.5",
+        "@wpazderski/node-package-tools": "^1.0.0",
+        "@wpazderski/playwright-config": "^1.0.4",
+        "@wpazderski/prettier-config": "^1.0.3",
+        "@wpazderski/typescript-config": "^1.0.4",
+        "cross-env": "^10.0.0",
+        "eslint": "^9.33.0",
         "npm-run-all": "^4.1.5",
-        "prettier": "^3.5.3",
+        "prettier": "^3.6.2",
         "rimraf": "^6.0.1",
-        "typescript": "^5.8.3"
+        "typedoc": "^0.28.10",
+        "typedoc-github-theme": "^0.3.0",
+        "typescript": "^5.9.2",
+        "vite": "^7.1.2"
     },
     "peerDependencies": {
         "@playwright/test": "^1.52.0"

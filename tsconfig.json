@@ -3,10 +3,16 @@
     "files": [],
     "references": [
         {
+            "path": "./tsconfig.devServer.json"
+        },
+        {
             "path": "./tsconfig.root.json"
         },
         {
             "path": "./tsconfig.src.json"
+        },
+        {
+            "path": "./tsconfig.tests.json"
         }
     ]
 }
